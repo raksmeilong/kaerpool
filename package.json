@@ -1,0 +1,17 @@
+{
+  "name": "kaerpool",
+  "version": "1.0.0",
+  "description": "Bulk Kaer API accounts -> API keys -> one OpenAI-compatible endpoint -> 9Router. Zero dependencies.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": { "kaerpool": "bin/kaerpool.js" },
+  "main": "src/cli.js",
+  "files": ["bin", "src", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node bin/kaerpool.js",
+    "test": "node test/smoke.js"
+  },
+  "keywords": ["kaer", "9router", "openai-compatible", "gateway", "cli", "zero-dependency"],
+  "repository": { "type": "git", "url": "git+https://codeberg.org/0xgetz/kaerpool.git" }
+}
