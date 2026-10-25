@@ -122,6 +122,100 @@ print(client.chat.completions.create(
 | `test` | 通过 9Router 做端到端测试 |
 | `doctor` | 检查邮箱、Kaer、9Router 与存储 |
 
+## 可用模型
+
+共 38 个模型，均由 `api.kaer.ai` 提供，可用免费额度支付。通过 9Router 或池适配器调用时，在 id 前加 `kaer/`，例如 `kaer/janus-1-flash`。
+
+**Kaer**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `janus-1-flash` | Janus 1.0 Flash | 0.25 | 0.5 |
+| `janus-1-pro` | Janus 1.0 Pro | 0.26 | 0.78 |
+| `kaer-x2` | Kaer-X2 | 0.25 | 0.8 |
+| `x1-kaer` | X1-Kaer | 0.1 | 0.4 |
+
+**DeepSeek**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `deepseek-v4-flash` | DeepSeek V4 Flash | 0.4 | 1.6 |
+| `deepseek-v4-flash-0731` | DeepSeek V4 Flash (0731 GA) | 0.4 | 1.6 |
+| `deepseek-v4-pro` | DeepSeek V4 Pro | 0.4 | 1.6 |
+| `deepseek-v4.1-flash` | DeepSeek V4.1 Flash | 0.4 | 1.6 |
+
+**Alibaba / Qwen**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `qwen3.7-flash` | Qwen 3.7 Flash | 0.06 | 0.22 |
+| `qwen3.7-plus` | Qwen 3.7 Plus | 0.56 | 2.22 |
+| `qwen3.8-flash` | Qwen 3.8 Flash | 0.24 | 0.78 |
+| `qwen3.8-max` | Qwen 3.8 Max | 3.3 | 9.92 |
+| `qwen-mt-flash` | Qwen MT Flash | 0.22 | 0.56 |
+| `qwen-mt-lite` | Qwen MT Lite | 0.18 | 0.46 |
+| `qwen-mt-plus` | Qwen MT Plus | 0.52 | 1.56 |
+| `qwen3-vl-flash` | Qwen3 VL Flash | 0.1 | 0.8 |
+| `qwen3-vl-plus` | Qwen3 VL Plus | 0.3 | 2.88 |
+
+**Zhipu / GLM**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `glm-5-turbo` | GLM 5 Turbo | 2.4 | 8 |
+| `glm-5.2` | GLM 5.2 | 2.8 | 8.8 |
+| `glm-5.3` | GLM 5.3 | 2.8 | 8.8 |
+| `glm-5.3-flash` | GLM 5.3 Flash | 2.8 | 8.8 |
+
+**Moonshot / Kimi**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `kimi-k2.6` | Kimi K2.6 | 0.4 | 1.6 |
+| `kimi-k2.7-code` | Kimi K2.7 Code | 0.4 | 1.6 |
+| `kimi-k3` | Kimi K3 | 0.4 | 1.6 |
+| `kimi-k3.1-pro` | Kimi K3.1 Pro | 2.5 | 12.5 |
+
+**Tencent / Hunyuan**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `hy3` | Hunyuan 3 | 0.4 | 1.6 |
+| `hy4-preview` | Hunyuan 4 Preview | 0.4 | 1.6 |
+| `hy-mt2-lite` | Hunyuan MT2 Lite | 0.4 | 1.6 |
+| `hy-mt2-plus` | Hunyuan MT2 Plus | 0.4 | 1.6 |
+| `hy-mt2-pro` | Hunyuan MT2 Pro | 0.4 | 1.6 |
+
+**MiniMax**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `minimax-m3` | MiniMax M3 | 0.6 | 2.4 |
+
+**Meituan / LongCat**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `longcat-2.0` | LongCat 2.0 | 0.6 | 2.4 |
+
+**StepFun**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `step-3.5-flash` | Step 3.5 Flash | 0.13 | 0.39 |
+| `step-3.5-flash-2603` | Step 3.5 Flash 2603 | 0.13 | 0.39 |
+| `step-3.7-flash` | Step 3.7 Flash | 0.26 | 1.5 |
+| `step-5-preview` | Step 5 Preview | 1.3 | 3.51 |
+
+**Poolside / Laguna**
+
+| Model | Label | In $/M | Out $/M |
+| --- | --- | ---: | ---: |
+| `laguna-s-2.1` | Laguna S 2.1 | 0.5 | 3 |
+| `laguna-xs-2.1` | Laguna XS 2.1 | 0.5 | 3 |
+
+> 价格为每百万 token 的美元价格，实时读取自 `/v1/models`。日常最便宜的选择是 `step-3.7-flash`、`qwen3.7-flash` 和 `janus-1-flash`。
+
 ## 配置
 
 一切都有默认值；可逐次调用或用环境变量覆盖：
