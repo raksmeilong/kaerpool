@@ -47,6 +47,10 @@ function cfgFrom(flags) {
     routerPassword: flags['router-password'] || process.env.NINE_ROUTER_PASSWORD || 'changeme9router',
     adapterPort: Number(flags.port || 8791),
     adapterHost: flags.host || process.env.KAER_HOST || '127.0.0.1',
+    mailProvider: flags.mail || process.env.KAER_MAIL || 'mail.tm',
+    imapUser: flags['imap-user'] || process.env.KAER_IMAP_USER || '',
+    imapPassword: flags['imap-pass'] || process.env.KAER_IMAP_PASS || '',
+    mailDomain: flags['mail-domain'] || process.env.KAER_MAIL_DOMAIN || 'gmail.com',
     prefix: flags.prefix || 'kaer',
   });
 }
@@ -58,6 +62,7 @@ USAGE
 ACCOUNTS
   create [n]                create n accounts, mint keys, self-test
     --domain <d>            mail.tm domain (default: first available)
+    --mail <p>              mailbox provider: mail.tm (default) or imap
     --email <addr>          use this address instead of a random mailbox
     --key-name <name>       name of the minted API key (default 9router)
     --concurrency <n>       parallel creations (default 1)
@@ -82,6 +87,10 @@ MODELS
   test                      end-to-end check through 9Router
 
 OPTIONS
+  --mail <p>                mailbox provider: mail.tm or imap (Gmail + aliases)
+  --imap-user <addr>        inbox for the imap provider (also KAER_IMAP_USER)
+  --imap-pass <pw>          app password (also KAER_IMAP_PASS)
+  --mail-domain <d>         alias domain for the imap provider (default gmail.com)
   --store <file>            state file (default ./data/accounts.json)
   --router <url>            9Router base (default http://127.0.0.1:20128)
   --router-password <pw>    9Router admin password

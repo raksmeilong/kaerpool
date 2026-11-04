@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.ollie.kaerpool</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/node</string>
+    <string>bin/kaerpool.js</string>
+    <string>serve</string>
+    <string>--port</string><string>8792</string>
+    <string>--host</string><string>0.0.0.0</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/raksmeilong/Documents/GitHub/kaerpool</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>NINE_ROUTER_BASE</key><string>http://192.168.1.200:20128</string>
+    <key>NINE_ROUTER_PASSWORD</key><string>Smei$2024.</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/Users/raksmeilong/Documents/GitHub/kaerpool/logs/kaerpool.out.log</string>
+  <key>StandardErrorPath</key><string>/Users/raksmeilong/Documents/GitHub/kaerpool/logs/kaerpool.err.log</string>
+</dict>
+</plist>

@@ -2,7 +2,12 @@
 
 const { KaerClient } = require('./kaer');
 const { MailTm } = require('./mail');
+const { ImapMail, aliasFor } = require('./mail_imap');
 const { retry, sleep } = require('./http');
+
+function mailboxFor(cfg) {
+  return cfg.mailProvider === 'imap' ? new ImapMail(cfg) : new MailTm(cfg);
+}
 
 /**
  * Provisions one Kaer API account end to end:
@@ -16,11 +21,17 @@ class Creator {
   constructor(cfg, opts = {}) {
     this.cfg = cfg;
     this.log = opts.log || (() => {});
-    this.mail = opts.mail || new MailTm(cfg);
+    this.mail = opts.mail || mailboxFor(cfg);
   }
 
   async ensureMailbox({ email, domain, mail = null } = {}) {
     if (mail) this.mail = mail;
+    // Real inboxes (Gmail) are addressed with plus aliases; nothing to provision.
+    if (this.mail instanceof ImapMail || this.cfg.mailProvider === 'imap') {
+      const box = email ? { address: email } : aliasFor(this.cfg.imapUser, this.cfg.mailDomain);
+      await this.mail.create(box.address);
+      return { ...box, domain: this.cfg.mailDomain };
+    }
     if (email) {
       const box = KaerClient.mailbox(domain || 'maxxspace.com');
       const target = { ...box, address: email };
@@ -37,7 +48,7 @@ class Creator {
 
   async provision({ email, domain, keyName = '9router', verify = true, mailTimeoutMs = 150000, mail = null } = {}) {
     const c = new KaerClient(this.cfg, {});
-    const box0 = mail || new MailTm(this.cfg);
+    const box0 = mail || mailboxFor(this.cfg);
     this.mail = box0;
     let stage = 'mailbox';
     try {
@@ -83,6 +94,7 @@ class Creator {
         accountRef: me?.account || null,
         balance: me?.balance || null,
         modelCount: models.length,
+        models: models.map((m) => m.id).slice(0, 64),
         cookies: c.state.cookies,
         createdAt: new Date().toISOString(),
       };
@@ -99,7 +111,8 @@ class Creator {
   async bulk(count, opts = {}) {
     const results = [];
     // each concurrent worker owns a mailbox client so inbox tokens never cross
-    const { MailTm } = require('./mail');
+    const useImap = this.cfg.mailProvider === 'imap';
+const { ImapMail, aliasFor } = require('./mail_imap');
     const fails = [];
     const queue = Array.from({ length: count }, (_, i) => i);
     const workers = Array.from({ length: Math.max(1, opts.concurrency || 1) }, async () => {
@@ -107,7 +120,7 @@ class Creator {
         const i = queue.shift();
         if (i > 0) await sleep((opts.spawnDelayMs ?? 2500) * i);
         try {
-          const rec = await this.provision({ ...opts, mail: new MailTm(this.cfg) });
+          const rec = await this.provision({ ...opts, mail: useImap ? new ImapMail(this.cfg) : new MailTm(this.cfg) });
           results.push(rec);
           this.log(`✔ [${results.length + fails.length}/${count}] ${rec.email}`);
         } catch (err) {
@@ -126,4 +139,4 @@ class Creator {
   }
 }
 
-module.exports = { Creator };
+module.exports = { Creator, mailboxFor };

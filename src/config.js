@@ -4,7 +4,12 @@ const DEFAULTS = {
   webBase: 'https://app.kaer.ai',
   apiBase: 'https://api.kaer.ai',
   mailBase: 'https://api.mail.tm',
-  mailProvider: 'mail.tm',
+  mailProvider: process.env.KAER_MAIL || 'mail.tm',
+  mailDomain: process.env.KAER_MAIL_DOMAIN || 'gmail.com',
+  imapHost: process.env.KAER_IMAP_HOST || 'imap.gmail.com',
+  imapPort: Number(process.env.KAER_IMAP_PORT || 993),
+  imapUser: process.env.KAER_IMAP_USER || '',
+  imapPassword: process.env.KAER_IMAP_PASS || '',
   userAgent:
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
     '(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
