@@ -46,6 +46,7 @@ function cfgFrom(flags) {
     routerBase: flags.router || process.env.NINE_ROUTER_BASE || 'http://127.0.0.1:20128',
     routerPassword: flags['router-password'] || process.env.NINE_ROUTER_PASSWORD || 'changeme9router',
     adapterPort: Number(flags.port || 8791),
+    adapterHost: flags.host || process.env.KAER_HOST || '127.0.0.1',
     prefix: flags.prefix || 'kaer',
   });
 }
@@ -85,6 +86,8 @@ OPTIONS
   --router <url>            9Router base (default http://127.0.0.1:20128)
   --router-password <pw>    9Router admin password
   --port <n>                adapter port (default 8791)
+  --host <ip>               adapter bind address (default 127.0.0.1; use
+                            0.0.0.0 when 9Router runs on another machine)
   --json                    machine-readable output
   -h, --help                this help
 `;
