@@ -199,6 +199,7 @@ async function cmdRefresh(cfg, flags) {
         accountRef: me.account,
         balance: me.balance,
         modelCount: models.length,
+        models: models.map((m) => m.id).slice(0, 64),
         checkedAt: new Date().toISOString(),
       });
       changed += 1;
